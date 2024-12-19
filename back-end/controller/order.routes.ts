@@ -1,6 +1,14 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
+import orderService from '../service/order.service';
 
 const orderRouter = express.Router();
-orderRouter.get('/',async (req, res, next) => {
-    res.send('GET /order');
+orderRouter.get('/',async (req: Request, res: Response, next: NextFunction) => {
+    try{
+        const orders = await orderService.getAllOrders();
+        res.status(200).json(orders);
+    }
+    catch(error){     
+        next(error);
+    }
 });
+export {orderRouter};

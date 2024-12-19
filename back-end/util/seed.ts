@@ -85,7 +85,7 @@ const order1 = await prisma.order.create({
         orderDate: new Date("2024-12-01"),
         deliveryDate: new Date("2024-12-10"),
         totalAmount: 1000,
-        status: "Delivered",
+        status: "Paid",
         user: {
             connect: { email: 'manager@carshop.be' },
         },
