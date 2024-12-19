@@ -9,6 +9,7 @@ import {carPartRouter} from './controller/carPart.routes'
 import { userRouter } from './controller/user.routes';
 import { expressjwt } from 'express-jwt';
 import helmet from 'helmet';
+import { orderRouter } from './controller/order.routes';
 
 const app = express();
 app.use(helmet());
@@ -36,6 +37,7 @@ app.use(
 app.use('/cars', carRouter);
 app.use('/users', userRouter);
 app.use('/carPart', carPartRouter)
+app.use('/orders', orderRouter)
 
 app.get('/status', (req, res) => {
     res.json({ message: 'Back-end is running...' });

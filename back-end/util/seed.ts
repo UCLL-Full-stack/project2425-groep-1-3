@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 const main = async () => {
     await prisma.car.deleteMany();
     await prisma.carPart.deleteMany();
+    await prisma.order.deleteMany();
     await prisma.user.deleteMany();
 
     // car //
@@ -79,6 +80,18 @@ const teslaEngine = await prisma.carPart.create({
         quantity: 0,
     },
 })
+const order1 = await prisma.order.create({
+    data: {
+        orderDate: new Date("2024-12-01"),
+        deliveryDate: new Date("2024-12-10"),
+        totalAmount: 1000,
+        status: "Delivered",
+        user: {
+            connect: { email: 'manager@carshop.be' },
+        },
+    },
+})
+
 };
 
 (async () => {
