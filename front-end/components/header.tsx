@@ -34,7 +34,7 @@ const Header: React.FC = () => {
                 {t("header.nav.carPartStock")}
               </Link>
               <div className="p-2 fs-6 mt-1 ml-6 text-[#ffffff] italic under">
-                {t("header.welcome")}, {loggedInUser.name}!{" "} {"("}{loggedInUser.role}{")"}
+                {t("header.welcome")}, <label className="font-bold">{loggedInUser.name}</label>!{" "} {"("}{loggedInUser.role}{")"}
               </div>
               <Link
                 href="/login"
