@@ -6,4 +6,5 @@ const createOrder = async (orderData: any): Promise<Order> => {
     const order = new Order(orderData);
     return orderDb.createOrder(order);
   };
-export default {getAllOrders, createOrder}; 
+const deleteOrderById = async (id: number): Promise<Order> => orderDb.deleteOrderById(id);
+export default {getAllOrders, createOrder, deleteOrderById}; 

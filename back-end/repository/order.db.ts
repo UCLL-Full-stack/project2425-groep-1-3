@@ -34,9 +34,24 @@ const createOrder = async (order : Order): Promise<Order> => {
     }
 };
 
+const deleteOrderById = async (id: number): Promise<Order> => {
+    try {
+        const orderPrisma = await database.order.delete({
+            where: {
+                id
+            }
+        });
+        return Order.from(orderPrisma);
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error.');
+    }
+};
+
 
 
 export default {
     getAllOrders,
     createOrder,
+    deleteOrderById,
 };

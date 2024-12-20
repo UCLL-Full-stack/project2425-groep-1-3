@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Order } from "@/types";
 import { useRouter } from "next/router";
+import OrderService from "@/services/OrderService";
+import { Trash2 } from "lucide-react";
 
 type Props = {
   orders: Array<Order>;
@@ -31,6 +33,16 @@ const OrderTable: React.FC<Props> = ({ orders: initialOrders }: Props) => {
     router.push('/orders/addOrder');
   };
 
+  const handleDeleteOrder = async (orderId: number) => {
+    try {
+      await OrderService.deleteOrder(orderId);
+      setOrders((prevOrders) => prevOrders.filter((order) => order.id !== orderId));
+      console.log("Order successfully deleted");
+    } catch (error) {
+      console.error("Failed to delete order", error);
+    }
+  };
+
 
   return (
     <div className="p-4">
@@ -44,6 +56,7 @@ const OrderTable: React.FC<Props> = ({ orders: initialOrders }: Props) => {
               <th className="border border-gray-300 px-4 py-2 text-left">Total Amount</th>
               <th className="border border-gray-300 px-4 py-2 text-left">Status</th>
               <th className="border border-gray-300 px-4 py-2 text-left"></th>
+              <th className="border border-gray-300 px-4 py-2 text-left">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -68,6 +81,11 @@ const OrderTable: React.FC<Props> = ({ orders: initialOrders }: Props) => {
                       onClick={() => order.id !== undefined && handleChangeStatus(order.id)}
                     >
                       Change status
+                    </button>
+                  </td>
+                  <td>
+                    <button className="mt- px-2 py-2 bg-[#ff8921] hover:bg-[#ff642bbb] rounded ">
+                      <Trash2 className="text-black" onClick={() => order.id !== undefined && handleDeleteOrder(order.id)} />
                     </button>
                   </td>
                 </tr>

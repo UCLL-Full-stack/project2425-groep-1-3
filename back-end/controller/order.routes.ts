@@ -22,4 +22,13 @@ orderRouter.post('/', async (req: Request, res: Response, next: NextFunction) =>
     }
 });
 
+orderRouter.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const id = parseInt(req.params.id);
+        const deletedOrder = await orderService.deleteOrderById(id);
+        res.status(200).json(deletedOrder);
+    } catch (error) {
+        next(error);
+    }
+});
 export {orderRouter};
