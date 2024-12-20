@@ -1,4 +1,5 @@
-import { Car as CarPrisma } from '@prisma/client';
+import { CarPart as CarPartPrisma, Car as CarPrisma } from '@prisma/client';
+import { CarPart } from './CarPart';
 export class Car {
     private id?: number;
     private model: string;
@@ -6,6 +7,7 @@ export class Car {
     private year: number;
     private licensePlate: string;
     private price: number;
+    private carParts: CarPart[] = [];
 
     constructor(car: {
         id?: number;
@@ -14,6 +16,7 @@ export class Car {
         year: number;
         licensePlate: string;
         price: number;
+        carParts: CarPart[];
     }) {
         this.id = car.id;
         this.model = car.model;
@@ -21,15 +24,16 @@ export class Car {
         this.year = car.year;
         this.licensePlate = car.licensePlate;
         this.price = car.price;
+        this.carParts = car.carParts;
     }
 
-    equals({ id, model, brand, year, licensePlate, price }: Car): boolean {
-        return(
-            this.id === id && 
-            this.model === model && 
-            this.brand === brand && 
-            this.year === year && 
-            this.licensePlate === licensePlate && 
+    equals({ id, model, brand, year, licensePlate, price}: Car): boolean {
+        return (
+            this.id === id &&
+            this.model === model &&
+            this.brand === brand &&
+            this.year === year &&
+            this.licensePlate === licensePlate &&
             this.price === price
         );
     }
@@ -58,13 +62,20 @@ export class Car {
         return this.price;
     }
 
-    static from({ id, model, brand, year, licensePlate, price }: CarPrisma) {
-        return new Car({ 
-            id, 
-            model, 
-            brand, 
-            year, 
-            licensePlate, 
-            price });
+    getCarParts(): CarPart[] {
+        return this.carParts;
+    }
+
+    static from({ id, model, brand, year, licensePlate, price, carParts }: CarPrisma & {carParts: CarPartPrisma[]}): Car {
+        return new Car({
+            id,
+            model,
+            brand,
+            year,
+            licensePlate,
+            price,
+            carParts: carParts.map((carPart) => CarPart.from(carPart))
+
+        });
     }
 }

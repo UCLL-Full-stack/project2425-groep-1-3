@@ -14,6 +14,7 @@ type CarInput = {
     year: number;
     licensePlate: string;
     price: number;
+    carParts: CarPartInput[];
 };
 type CarPartInput = {
     id?: number;

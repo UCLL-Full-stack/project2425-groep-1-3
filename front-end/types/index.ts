@@ -5,6 +5,7 @@ export type Car = {
   year?: number;
   licensePlate?: string;
   price?: number;
+  carParts?: CarPart[];
 };
 
 export type CarPart = {

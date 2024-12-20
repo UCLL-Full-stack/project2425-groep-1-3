@@ -1,7 +1,7 @@
 import { Car } from "../model/Car";
 import database from "../util/database";
 
-const addCar = async (car : Car): Promise<Car> => {
+const addCar = async (car: Car): Promise<Car> => {
     try {
         const carPrisma = await database.car.create({
             data: {
@@ -9,12 +9,20 @@ const addCar = async (car : Car): Promise<Car> => {
                 brand: car.getBrand(),
                 year: car.getYear(),
                 licensePlate: car.getLicensePlate(),
-                price: car.getPrice()
+                price: car.getPrice(),
+                carParts: {
+                    connect: car.getCarParts().map((part) => ({ id: part.getId() }))
+                }
+            },
+            include: {
+                carParts: true
             }
         });
+        if (!carPrisma) {
+            throw new Error('Failed to create car.');
+        }
         return Car.from(carPrisma);
-    }
-    catch (error) {
+    } catch (error) {
         console.error(error);
         throw new Error('Database error. See server log for details.');
     }
@@ -22,8 +30,12 @@ const addCar = async (car : Car): Promise<Car> => {
 
 const getAllCars = async (): Promise<Car[]> => {
     try {
-        const carsPrisma = await database.car.findMany();
-        return carsPrisma.map((carPrisma) => Car.from(carPrisma));
+        const carsPrisma = await database.car.findMany({
+            include: {
+                carParts: true
+            }
+        });
+        return carsPrisma.map(Car.from);
     } catch (error) {
         console.error(error);
         throw new Error('Database error. See server log for details.');
@@ -35,6 +47,9 @@ const getCarById = async (id: number): Promise<Car | null> => {
         const carPrisma = await database.car.findUnique({
             where: {
                 id
+            },
+            include: {
+                carParts: true
             }
         });
         return carPrisma ? Car.from(carPrisma) : null;
@@ -49,8 +64,14 @@ const deleteCarById = async (id: number): Promise<Car> => {
         const carPrisma = await database.car.delete({
             where: {
                 id
+            },
+            include: {
+                carParts: true
             }
         });
+        if (!carPrisma) {
+            throw new Error(`Car with id ${id} does not exists.`);
+        }
         return Car.from(carPrisma);
     } catch (error) {
         console.error(error);
@@ -58,9 +79,4 @@ const deleteCarById = async (id: number): Promise<Car> => {
     }
 };
 
-export default {
-    getAllCars,
-    getCarById,
-    deleteCarById,
-    addCar,
-};
+export default { addCar, getAllCars, getCarById, deleteCarById };
