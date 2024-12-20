@@ -1,6 +1,7 @@
 import Header from "@/components/header";
 import OrderTable from "@/components/orders/orderTable";
 import orderService from "@/services/OrderService";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Order } from "@/types";
 import Head from "next/head";
 import { useEffect, useState } from "react";
@@ -37,6 +38,15 @@ const OrdersPage: React.FC = () => {
       <OrderTable orders={orders} />
     </div>
   );
+};
+
+export const getServerSideProps = async (context: { locale: any; }) => {
+  const { locale } = context;
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
+    },
+  };
 };
 
 export default OrdersPage;

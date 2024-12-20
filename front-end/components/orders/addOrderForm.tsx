@@ -91,11 +91,10 @@ const addOrderForm: React.FC = () => {
                     </select>
                 </div>
                 <button
-                    className="bg-[#ff8921] px-0.75 py-1.5 rounded p-2.5 text-black"
+                    className="bg-[#21b5ff] hover:bg-[#21b5ff97] px-0.75 py-1.5 rounded p-2.5 text-black"
                     type="submit"
                     style={{
                         padding: '0.75rem 1.5rem',
-                        backgroundColor: '#ff8921',
                         color: 'black',
                         border: 'none',
                         borderRadius: '4px',

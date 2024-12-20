@@ -84,7 +84,7 @@ const OrderTable: React.FC<Props> = ({ orders: initialOrders }: Props) => {
                     </button>
                   </td>
                   <td>
-                    <button className="mt- px-2 py-2 bg-[#ff8921] hover:bg-[#ff642bbb] rounded ">
+                    <button className="mt- px-2 py-2 bg-[#21b5ff] hover:bg-[#21b5ff97] rounded ">
                       <Trash2 className="text-black" onClick={() => order.id !== undefined && handleDeleteOrder(order.id)} />
                     </button>
                   </td>
@@ -94,7 +94,7 @@ const OrderTable: React.FC<Props> = ({ orders: initialOrders }: Props) => {
           </tbody>
         </table>
         <div className="flex justify-center mt-4">
-          <button className="flex items-center px-6 py-3 text-xl bg-[#ff8921] hover:bg-[#ff642bbb] rounded" onClick={handleAddOrder}>
+          <button className="flex items-center px-6 py-3 text-xl bg-[#21b5ff] hover:bg-[#21b5ff97] rounded" onClick={handleAddOrder}>
             Create Order
           </button>
         </div>
