@@ -11,6 +11,15 @@ carRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
         next(error);
     }
 });
+carRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const carId = parseInt(req.params.id, 10);
+        const car = await carService.getCarById(carId);
+        res.status(200).json(car);
+    } catch (error) {
+        next(error);
+    }
+});
 carRouter.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const carId = parseInt(req.params.id, 10);

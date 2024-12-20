@@ -30,6 +30,20 @@ const getAllCars = async (): Promise<Car[]> => {
     }
 };
 
+const getCarById = async (id: number): Promise<Car | null> => {
+    try {
+        const carPrisma = await database.car.findUnique({
+            where: {
+                id
+            }
+        });
+        return carPrisma ? Car.from(carPrisma) : null;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+};
+
 const deleteCarById = async (id: number): Promise<Car> => {
     try {
         const carPrisma = await database.car.delete({
@@ -46,6 +60,7 @@ const deleteCarById = async (id: number): Promise<Car> => {
 
 export default {
     getAllCars,
+    getCarById,
     deleteCarById,
     addCar,
 };
