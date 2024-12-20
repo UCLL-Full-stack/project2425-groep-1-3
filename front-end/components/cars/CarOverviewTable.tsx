@@ -99,6 +99,11 @@ const CarOverviewTable: React.FC<Props> = ({ cars, selectCar }: Props) => {
           </tbody>
         </table>
       )}
+      <button className="fixed bottom-6 right-10 bg-[#21b5ff] hover:bg-[#21b5ff97] rounded p-2.5 text-black" 
+                    onClick={() => router.push("/cars/add")}
+                    >
+                        Add new car
+                    </button>
     </>
   );
 };
