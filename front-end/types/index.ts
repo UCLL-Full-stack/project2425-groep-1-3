@@ -22,6 +22,15 @@ export type User = {
   email: string;
   role?: string;
 };
+
+export type Order = {
+  id?: number;
+  orderDate: Date | string;
+  deliveryDate: Date | string;
+  totalAmount: number;
+  status: string;
+};
+
 export type StatusMessage = {
   message: string;
   type: "error" | "success";

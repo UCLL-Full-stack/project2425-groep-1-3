@@ -33,8 +33,6 @@ model Order {
   deliveryDate DateTime
   totalAmount  Float
   status       String
-  userId       Int
-  user         User      @relation(fields: [userId], references: [id])
   parts        CarPart[] @relation("OrderParts")
 }
 
@@ -44,5 +42,4 @@ model User {
   password String
   email    String  @unique
   role     String
-  orders   Order[]
 }

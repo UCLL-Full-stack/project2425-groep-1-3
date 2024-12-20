@@ -1,3 +1,5 @@
+import { Order as OrderPrisma } from '@prisma/client';
+
 export class Order{
     private id?: number;
     private orderDate: Date;
@@ -34,4 +36,13 @@ export class Order{
     getStatus(): string {
         return this.status;
     }   
+    static from(order: OrderPrisma): Order {
+         return new Order({
+                id: order.id,
+                orderDate: order.orderDate,
+                deliveryDate: order.deliveryDate,
+                totalAmount: order.totalAmount,
+                status: order.status
+         });
+    }
 }
