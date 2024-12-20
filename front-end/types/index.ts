@@ -24,8 +24,8 @@ export type User = {
 
 export type Order = {
   id?: number;
-  orderDate: Date;
-  deliveryDate: Date;
+  orderDate: Date | string;
+  deliveryDate: Date | string;
   totalAmount: number;
   status: string;
 };

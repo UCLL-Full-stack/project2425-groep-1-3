@@ -12,15 +12,18 @@ const getAllOrders = async () => {
     }
 };
 
-/*const createOrder = async (order : Order): Promise<Order> => {
+const createOrder = async (order : Order): Promise<Order> => {
     try {
+        if (!(order instanceof Order)) {
+            throw new Error('expected order to be an instance of Order');
+        }
+
         const orderPrisma = await database.order.create({
             data: {
                 orderDate: order.getOrderDate(),
                 deliveryDate: order.getDeliveryDate(),
                 totalAmount: order.getTotalAmount(),
                 status: order.getStatus(),
-        
             },
     });
         return Order.from(orderPrisma);
@@ -30,9 +33,10 @@ const getAllOrders = async () => {
         throw new Error('Database error.');
     }
 };
-*/
+
 
 
 export default {
     getAllOrders,
+    createOrder,
 };

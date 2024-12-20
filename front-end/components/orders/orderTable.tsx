@@ -1,25 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Order } from "@/types";
+import { useRouter } from "next/router";
 
 type Props = {
   orders: Array<Order>;
 };
 
 const OrderTable: React.FC<Props> = ({ orders: initialOrders }: Props) => {
+  const router = useRouter();
   const [orders, setOrders] = useState(initialOrders);
+
+  useEffect(() => {
+    setOrders(initialOrders);
+  }, [initialOrders]);
 
   const handleChangeStatus = (orderId: number) => {
     setOrders((prevOrders) =>
       prevOrders.map((order) =>
         order.id === orderId
           ? {
-              ...order,
-              status: order.status === "Paid" ? "Not Paid" : "Paid",
-            }
+            ...order,
+            status: order.status === "Paid" ? "Not Paid" : "Paid",
+          }
           : order
       )
     );
   };
+
+  const handleAddOrder = () => {
+    router.push('/orders/addOrder');
+  };
+
 
   return (
     <div className="p-4">
@@ -65,7 +76,7 @@ const OrderTable: React.FC<Props> = ({ orders: initialOrders }: Props) => {
           </tbody>
         </table>
         <div className="flex justify-center mt-4">
-          <button className="flex items-center px-6 py-3 text-xl bg-[#ff8921] hover:bg-[#ff642bbb] rounded">
+          <button className="flex items-center px-6 py-3 text-xl bg-[#ff8921] hover:bg-[#ff642bbb] rounded" onClick={handleAddOrder}>
             Create Order
           </button>
         </div>
