@@ -27,6 +27,25 @@ const FordFocus = await prisma.car.create({
         year: 2019,
         licensePlate: "DEF456",
         price: 20000,
+        carParts: {
+            create: [
+                {
+                    name: "Front Bumper",
+                    price: 500,
+                    quantity: 1,
+                },
+                {
+                    name: "Rear Bumper",
+                    price: 400,
+                    quantity: 1,
+                },
+                {
+                    name: "Engine",
+                    price: 10000,
+                    quantity: 1,
+                },
+            ],
+        },
     },
 })
 

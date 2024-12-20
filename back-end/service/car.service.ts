@@ -1,6 +1,7 @@
 import carDb from "../repository/car.db";
 import { Car } from "../model/Car";
 import { CarInput } from "../types";
+import { CarPart } from "@prisma/client";
 
 const getAllCars = async (): Promise<Car[]> => carDb.getAllCars();
 
@@ -18,8 +19,15 @@ const addCar = async ({
     year,
     licensePlate,
     price,
-}: CarInput): Promise<Car> => {
-    const car = new Car({ model, brand, year, licensePlate, price });
+}: CarInput & {carPart: CarPart}): Promise<Car> => {
+    const car = new Car({
+        model,
+        brand,
+        year,
+        licensePlate,
+        price,
+        carParts: []
+    });
     return carDb.addCar(car);
 }
 

@@ -14,7 +14,7 @@ model Car {
   year         Int
   licensePlate String
   price        Float
-  parts        CarPart[]
+  carParts     CarPart[]
 }
 
 model CarPart {

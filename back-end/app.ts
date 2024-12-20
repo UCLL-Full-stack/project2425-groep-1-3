@@ -15,6 +15,14 @@ app.use(helmet());
 dotenv.config();
 const port = process.env.APP_PORT || 3000;
 
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            connectSrc: ["'self'", 'https://api.ucll.be'],
+        },
+    })
+);
+
 app.use(cors({ origin: 'http://localhost:8080' }));
 app.use(bodyParser.json());
 
