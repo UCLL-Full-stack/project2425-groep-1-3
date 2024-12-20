@@ -18,7 +18,7 @@
         "success": "Aanmelden succesvol. Doorsturen naar startpagina...",
         "validate": {
             "emailError": "E-mail error",
-            "name": "E-mail is verplicht",
+            "email": "E-mail is verplicht",
             "passwordError": "Wachtwoord error",
             "password": "Wachtwoord is verplicht"
         },

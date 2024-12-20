@@ -8,8 +8,8 @@ const AddCarPage: React.FC = () => {
         <>
         <Header/>
         <div style={{ padding: '2rem' }}>
-            <h1>Add a New Car</h1>
-            <p>Fill out the form below to add a new car to the database.</p>
+            <h1 className='font-bold self-center'>Add a New Car</h1>
+            <p className=''>Fill out the form below to add a new car to the database.</p>
             <AddCarForm />
         </div>
         </>

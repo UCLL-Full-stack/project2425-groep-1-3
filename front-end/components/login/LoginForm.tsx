@@ -24,10 +24,11 @@ const LoginForm: React.FC = () => {
     let result = true;
     if (email.trim() === "") {
       toast({
-        title: "E-mail Error",
-        description: "E-mail is required",
+        title: `${t("login.validate.emailError")}`,
+        description: `${t("login.validate.email")}`,
         variant: "destructive",
-        style: { margin: "1rem", padding: "1.5rem" },
+        style: { backgroundColor: "#FA3422FF", margin: "1rem", padding: "1.5rem", position: "fixed", bottom: "1rem", right: "1rem", maxWidth: "350px" },
+        duration: 3000,
       });
       result = false;
     }
@@ -36,7 +37,8 @@ const LoginForm: React.FC = () => {
         title: `${t("login.validate.passwordError")}`,
         description: `${t("login.validate.password")}`,
         variant: "destructive",
-        style: { margin: "1rem", padding: "1.5rem" },
+        style: { backgroundColor: "#FF4231FF", margin: "1rem", padding: "1.5rem", position: "fixed", bottom: "7rem", right: "1rem", maxWidth: "350px" },
+        duration: 3000,
       });
       result = false;
     }
@@ -65,16 +67,15 @@ const LoginForm: React.FC = () => {
           }),
         );
         sessionStorage.setItem("loggedInUser", name);
-        console.log(userData);
         setStatusMessages([
           {
-            message: "login successful ",
+            message: `${t("login.success")}`,
             type: "success",
           },
         ]);
         setTimeout(() => {
           router.push("/");
-        }, 2000);
+        }, 2100);
       } else if (response.status === 401) {
         const errorResponse = await response.json();
         setStatusMessages([{ message: errorResponse.message, type: "error" }]);
